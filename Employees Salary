@@ -1,0 +1,68 @@
+#Employee Salaries for different job roles
+#firstly, install ISLR Package
+install.packages("ISLR")
+library(ISLR)
+
+#inorder to extract the data use the following codes:-
+employee_salaries<-read.csv("C:/Users/HP/AppData/Local/Temp/Rar$DRa3688.28705/ds_salaries.csv")
+employee_salaries
+ncol(employee_salaries)
+names(employee_salaries)
+nrow(employee_salaries)
+
+#descriptive statistics
+summary(employee_salaries)
+
+#Making a regression model in EXPONENTIAL FORM
+#x-variable- salary, y-variable-remote ratio
+#Remote Ratio-The percentage of remote work allowed for the position.
+plot(employee_salaries$remote_ratio~employee_salaries$salary, xlab="salary of the employees", ylab="remote ratio")
+reg<-lm(remote_ratio~salary,data=employee_salaries)
+reg
+plot(reg)
+abline(h=mean(employee_salaries$remote_ratio),col="red")
+abline(v=mean(employee_salaries$salary),col="blue")
+abline(reg)
+#Intuition:- As the salary increases by 1 currency, the estimated remote ratio decreases by 3.85 percent on an average.
+# This shows that as people goes to higher position, they are allowed to work from office rather than from their respective convinient places.
+
+#Plotting the graph in LOGARITHMIC FORM
+salary<-log(employee_salaries$salary)
+plot(employee_salaries$remote_ratio~salary, xlab="salary of the employees", ylab="remote ratio")
+
+#Making of the histograms in exponential form
+hist(employee_salaries$salary,
+     main = "Salary of the employees in local currency",
+     xlab = "Salary(in local currency)",
+     ylab = "frequency",
+     col="purple")
+hist(employee_salaries$salary_in_usd,
+     main = "Salary of the employees in USD",
+     xlab = "Salary(in USD)",
+     ylab = "frequency",
+     col="green")
+
+#Making of histograms in logarithmic format
+salary<-log(employee_salaries$salary)
+hist(salary,xlab = "Salary",main = "Histogram of salaries")
+
+salary_USD<-log(employee_salaries$salary_in_usd)
+hist(salary,xlab = "Salary(USD)",main = "Histogram of salaries in USD", col="orange")
+
+hist(employee_salaries$remote_ratio,
+     main = "Remote ratio of the employees",
+     xlab = "Remote ratio",
+     ylab = "frequency",
+     col="pink")
+
+#Boxplot of various variables
+boxplot(employee_salaries$salary_in_usd,main = "Boxplot of salaries in USD",ylab = "salaries in USD")
+boxplot(salary_USD,main = "Boxplot of salaries in USD",ylab = "salaries in USD")
+
+boxplot(employee_salaries$salary,main = "Boxplot of salaries in local currency",ylab = "salaries")
+boxplot(salary,main = "Boxplot of salaries in local currency",ylab = "salaries")
+
+boxplot(employee_salaries$remote_ratio,main = "Boxplot of remote ratio",ylab = "remote ratio")
+
+
+
